@@ -1,0 +1,30 @@
+version: '3.6'
+
+services:
+
+    # Backend api
+    smart-brain-api:
+        container_name: backend
+        build: ./smart-brain-api
+        working_dir: /usr/src/smart-brain-api
+        environment:
+            POSTGRES_URL: postgres://test:test@postgres:5432/test
+        depends_on:
+            - postgres
+        ports: 
+            - "5000:5000"
+        volumes: 
+            - ./smart-brain-api:/usr/src/smart-brain-api
+    
+    #Postgres
+    postgres:
+        build: ./smart-brain-api/postgres
+        environment: 
+             POSTGRES_USER: test
+             POSTGRES_PASSWORD: test
+             POSTGRESS_DB: test
+             POSTGRES_HOST: postgres
+             POSTGRES_URL: postgres://test:test@postgres:5432/test
+        ports: 
+            - "5432:5432"
+         
